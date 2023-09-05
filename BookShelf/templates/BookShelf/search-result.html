@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% block body %}
+
+<section class="section-content padding-y">
+	<div class="container">
+	
+	<div class="row">
+		<aside class="col-md-3">
+			
+	<div class="card">
+		<article class="filter-group">
+			<header class="card-header">
+                <h3>Search Results</h3>
+			</header>
+			<div class="filter-content collapse show" id="collapse_1" style="">
+				<div class="card-body">
+					
+					
+	
+				</div> <!-- card-body.// -->
+			</div>
+		</article> <!-- filter-group  .// -->
+		
+	</div> <!-- card.// -->
+	
+		</aside> <!-- col.// -->
+		<main class="col-md-9">
+	
+	<header class="border-bottom mb-4 pb-3">
+			<div class="form-inline">
+				<span class="mr-md-auto">{{books|length}} Items found </span>
+				
+			</div>
+	</header><!-- sect-heading -->
+	
+	<div class="row">
+		{% for bk in books %}
+		<div class="col-md-4">
+			<figure class="card card-product-grid">
+				<div class="img-wrap"> 
+					
+					<img src="{{bk.image.url}}">
+					
+				</div> <!-- img-wrap.// -->
+				<figcaption class="info-wrap">
+					<div class="fix-height">
+						<a href="./product-detail.html" class="title">{{bk.title}}</a>
+						<div class="price-wrap mt-2">
+							<span class="">{{bk.author}}</span>
+							<del class="price">{{bk.no_of_books_available}}</del>
+						</div> <!-- price-wrap.// -->
+					</div>
+				
+					{% if bk.no_of_books_available > 0 %}
+					<a href="" class="btn btn-block btn-success">Borrow</a>
+					{% else %}
+					<a href="{% url 'wishlist' %}" class="btn btn-block btn-danger">Not Available</a>
+					{% endif %}
+				</figcaption>
+			</figure>
+		</div> <!-- col.// -->
+
+		{% endfor %}
+	
+	</div> <!-- row end.// -->
+	
+	
+	
+	
+		</main> <!-- col.// -->
+	
+	</div>
+	
+	</div> <!-- container .//  -->
+	</section>
+{% endblock %}

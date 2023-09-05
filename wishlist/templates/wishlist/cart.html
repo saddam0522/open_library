@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block body %}
+<h1>My Wishlist</h1>
+  
+  <ul>
+    {% for book in books_in_wishlist %}
+      <li>{{ book.title }} by {{ book.author }}</li>
+    {% empty %}
+      <p>Your wishlist is empty.</p>
+    {% endfor %}
+  </ul> 
+
+{% endblock  %}

@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+{% load static %}
+{% block body %}
+
+<section class="section-content padding-y">
+	<div class="container">
+	
+	<div class="row">
+		<aside class="col-md-3">
+			
+	<div class="card">
+		<article class="filter-group">
+			<header class="card-header">
+				<a href="#" data-toggle="collapse" data-target="#collapse_1" aria-expanded="true" class="">
+					<i class="icon-control fa fa-chevron-down"></i>
+					<h6 class="title">Categories</h6>
+				</a>
+			</header>
+			<div class="filter-content collapse show" id="collapse_1" style="">
+				<div class="card-body">
+					
+					<ul class="list-menu">
+						{% for ct in categories %}
+							<li><a href="#">{{ct.genre}}  </a></li>
+							{% endfor %}
+					
+					</ul>
+	
+				</div> <!-- card-body.// -->
+			</div>
+		</article> <!-- filter-group  .// -->
+		
+	</div> <!-- card.// -->
+	
+		</aside> <!-- col.// -->
+		<main class="col-md-9">
+	
+	<header class="border-bottom mb-4 pb-3">
+			<div class="form-inline">
+				<span class="mr-md-auto">{{book|length}} Items found </span>
+				
+			</div>
+	</header><!-- sect-heading -->
+	
+	<div class="row">
+		{% for bk in book %}
+		<div class="col-md-4">
+			<figure class="card card-product-grid">
+				<div class="img-wrap"> 
+					
+					<img src="{{bk.image.url}}">
+					
+				</div> <!-- img-wrap.// -->
+				<figcaption class="info-wrap">
+					<div class="fix-height">
+						<a href="./product-detail.html" class="title">{{bk.title}}</a>
+						<div class="price-wrap mt-2">
+							<span class="">{{bk.author}}</span>
+							<del class="price">{{bk.no_of_books_available}}</del>
+						</div> <!-- price-wrap.// -->
+					</div>
+				
+					{% if bk.no_of_books_available > 0 %}
+					<a href="" class="btn btn-block btn-success">Borrow</a>
+					{% else %}
+					<a href="{% url 'add_to_wishlist' book_id %}" class="btn btn-block btn-danger">Wishlist</a>
+					{% endif %}
+				</figcaption>
+			</figure>
+		</div> <!-- col.// -->
+
+		{% endfor %}
+	
+	</div> <!-- row end.// -->
+	
+	
+	<nav class="mt-4" aria-label="Page navigation sample">
+
+	  <ul class="pagination">
+		{% if book.has_previous %}
+		<li class="page-item"><a class="page-link" href="?page={{products.previous_page_number}}">Previous</a></li>
+		{% else %}
+		<li class="page-item disabled"><a class="page-link" href="?page={{products.previous_page_number}}">Previous</a></li>
+		{% endif %}
+		{% for i in book.paginator.page_range %}
+		<li class="page-item active"><a class="page-link" href="?page={{i}}">{{i}}</a></li>
+		{% endfor %}
+		{% if book.has_next %}
+		<li class="page-item"><a class="page-link" href="?page={{book.next_page_number}}">Next</a></li>
+		{% else %}
+		<li class="page-item disable "><a class="page-link" href="#">Next</a></li>
+		{% endif %}
+	  </ul>
+	</nav>
+	
+		</main> <!-- col.// -->
+	
+	</div>
+	
+	</div> <!-- container .//  -->
+	</section>
+	<!-- ========================= SECTION  END// ========================= -->
+	
+	
+
+{% endblock  %}
